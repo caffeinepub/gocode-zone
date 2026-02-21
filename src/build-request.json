@@ -1,151 +1,53 @@
 {
   "kind": "build_request",
-  "title": "Add Admin panel with course management, announcements, lessons, VIP access, and member viewing",
+  "title": "Fix admin redirect after login not working",
   "projectName": "GoCode Zone",
-  "priority": "normal",
+  "priority": "high",
   "requirements": [
     {
-      "id": "REQ-17",
-      "text": "Create an Admin page route (/admin) accessible after login that serves as the admin panel dashboard",
+      "id": "REQ-26",
+      "text": "Debug and fix the authentication flow in LoginButton.tsx to ensure that when an admin user successfully logs in via Internet Identity, they are redirected to /admin instead of remaining on the current page or being redirected to home",
       "target": "frontend",
       "source": {
         "messageIds": [
-          "msg-last"
+          "msg-user-no"
         ],
         "quotes": [
-          "Your Admin panel can allow you to"
+          "no"
         ]
       },
       "acceptanceCriteria": [
-        "A new /admin route is registered in App.tsx router configuration",
-        "The Admin page is only accessible when a user is authenticated via Internet Identity",
-        "The page displays a dashboard layout with navigation to admin features"
+        "After clicking Login and completing Internet Identity authentication, an admin user is automatically redirected to the /admin route",
+        "Non-admin users continue to remain on their current page after login",
+        "The redirect happens immediately after successful authentication without requiring additional clicks",
+        "The admin status check from the backend is properly awaited before determining the redirect destination"
       ]
     },
     {
-      "id": "REQ-18",
-      "text": "Add course content editing functionality allowing admins to modify unit titles, descriptions, and topics for all 4 course units",
-      "target": "both",
+      "id": "REQ-27",
+      "text": "Verify that the useIsAdmin hook in LoginButton.tsx correctly fetches and returns the admin status after authentication is complete, and that the redirect logic waits for this check to finish before executing",
+      "target": "frontend",
       "source": {
         "messageIds": [
-          "msg-last"
-        ],
-        "quotes": [
-          "Edit course content"
+          "msg-user-no"
         ]
       },
       "acceptanceCriteria": [
-        "Backend stores course unit data (title, description, topics) persistently",
-        "Backend exposes methods to retrieve and update course unit information",
-        "Admin panel displays an editable interface for all 4 units with form inputs",
-        "Changes are saved to the backend and reflected on the Course page immediately"
-      ]
-    },
-    {
-      "id": "REQ-19",
-      "text": "Add announcement posting functionality allowing admins to create and publish announcements with title, content, and timestamp",
-      "target": "both",
-      "source": {
-        "messageIds": [
-          "msg-last"
-        ],
-        "quotes": [
-          "Post announcements"
-        ]
-      },
-      "acceptanceCriteria": [
-        "Backend stores announcements with title, content, author, and timestamp",
-        "Backend exposes methods to create, retrieve, and delete announcements",
-        "Admin panel includes a form to compose and publish new announcements",
-        "Announcements are displayed on the Home page in a dedicated section"
-      ]
-    },
-    {
-      "id": "REQ-20",
-      "text": "Add lesson upload functionality allowing admins to upload new lessons with title, content, associated unit, and order",
-      "target": "both",
-      "source": {
-        "messageIds": [
-          "msg-last"
-        ],
-        "quotes": [
-          "Upload new lessons"
-        ]
-      },
-      "acceptanceCriteria": [
-        "Backend stores lessons with title, content, unit ID, order/sequence number, and creation timestamp",
-        "Backend exposes methods to create, retrieve, update, and delete lessons",
-        "Admin panel provides a form to create new lessons and associate them with units",
-        "Lessons can be ordered/sequenced within their respective units"
-      ]
-    },
-    {
-      "id": "REQ-21",
-      "text": "Add VIP access management functionality allowing admins to grant or revoke VIP status for users by principal ID",
-      "target": "both",
-      "source": {
-        "messageIds": [
-          "msg-last"
-        ],
-        "quotes": [
-          "Manage VIP access"
-        ]
-      },
-      "acceptanceCriteria": [
-        "Backend stores VIP membership status per principal ID with grant/expiry dates",
-        "Backend exposes methods to grant VIP access, revoke access, and check VIP status",
-        "Admin panel displays a VIP management interface with user search by principal",
-        "Admins can grant or revoke VIP access with confirmation"
-      ]
-    },
-    {
-      "id": "REQ-22",
-      "text": "Add member viewing functionality allowing admins to see a list of all registered users with their principal IDs and join dates",
-      "target": "both",
-      "source": {
-        "messageIds": [
-          "msg-last"
-        ],
-        "quotes": [
-          "View members (optional)"
-        ]
-      },
-      "acceptanceCriteria": [
-        "Backend tracks user registrations with principal ID and join timestamp",
-        "Backend exposes a method to retrieve all registered members (admin-only)",
-        "Admin panel displays a members list table with principal ID, join date, and VIP status",
-        "The list supports pagination or scrolling for large member counts"
-      ]
-    },
-    {
-      "id": "REQ-23",
-      "text": "Implement role-based access control to restrict admin panel access to designated admin principals only",
-      "target": "backend",
-      "source": {
-        "messageIds": [
-          "msg-last"
-        ]
-      },
-      "acceptanceCriteria": [
-        "Backend maintains a list of admin principal IDs",
-        "All admin-only methods verify the caller is in the admin list before executing",
-        "Non-admin users receive an authorization error when attempting admin operations",
-        "The admin list can be initialized with at least one admin principal"
+        "The useIsAdmin query is enabled and executes immediately after successful login",
+        "The redirect logic waits for the admin status query to return data before determining the destination",
+        "No race conditions exist between authentication completion and admin status check"
       ]
     }
   ],
   "constraints": [
-    "Use the existing Internet Identity authentication system for admin login verification",
-    "Maintain single-actor architecture with all Motoko logic in backend/main.mo",
-    "Do not modify immutable frontend paths: useInternetIdentity.ts, useInternetIdentity.tsx, useActor.ts, main.tsx, components/ui",
-    "Use React Query for all data fetching and mutations in admin features"
+    "Do not modify the backend admin authorization logic",
+    "Maintain the existing Internet Identity authentication flow",
+    "Preserve the non-admin user experience (they should stay on current page after login)"
   ],
   "nonGoals": [
-    "User self-registration or profile management",
-    "Advanced lesson content editors (rich text, code highlighting)",
-    "Email or push notification system for announcements",
-    "Analytics or reporting dashboards",
-    "Multi-admin role hierarchies (owner, editor, viewer)"
+    "Changing the admin panel UI or functionality",
+    "Modifying the backend API endpoints",
+    "Adding new authentication methods"
   ],
   "imageRequirements": {
     "required": [],

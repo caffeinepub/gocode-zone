@@ -1,6 +1,6 @@
 {
   "schemaVersion": "1.0.0",
-  "projectStateVersion": 13,
+  "projectStateVersion": 17,
   "summary": "GoCode Zone - A community learning platform for Go programming with courses, quizzes, tests, and Discord integration",
   "architectural_notes": [
     "Multi-page website structure with Home, About, Course, Join Discord, and Privacy Policy as core pages",
@@ -10,8 +10,10 @@
     "Contact email: gocodezone@googlegroups.com",
     "Admin panel functionality includes: course content editing, announcements, lesson uploads, VIP access management, and optional member viewing"
   ],
-  "known_issues": [],
-  "isFixRequest": false,
+  "known_issues": [
+    "After login, users are redirected to the home page instead of the admin panel"
+  ],
+  "isFixRequest": true,
   "existing_features": [
     {
       "id": "feature-create-a-home-page-featuring-a-hero-section-with-the-title-welcome-to-gocode-zone-a-subtitle-describing-the-community-as-learn-go-from-beginner-to-advanced-a-prominent-join-discord-button-and-a-why-join-section-listing-at-least-4-bullet-points-beginner-friendly-lessons-weekly-quizzes-tests-coding-challenges-and-supportive-community",
@@ -178,6 +180,38 @@
       "title": "Add member viewing functionality allowing admins to see a list of all registered users with their principal IDs and join dates",
       "reqIds": [
         "REQ-22"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-after-successful-authentication-via-internet-identity-automatically-redirect-users-who-have-admin-privileges-to-the-admin-route-instead-of-the-home-page",
+      "title": "After successful authentication via Internet Identity, automatically redirect users who have admin privileges to the /admin route instead of the home page",
+      "reqIds": [
+        "REQ-24"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-ensure-the-login-flow-checks-the-authenticated-user-s-admin-status-from-the-backend-and-uses-that-information-to-determine-the-post-login-redirect-destination",
+      "title": "Ensure the login flow checks the authenticated user's admin status from the backend and uses that information to determine the post-login redirect destination",
+      "reqIds": [
+        "REQ-25"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-debug-and-fix-the-authentication-flow-in-loginbutton-tsx-to-ensure-that-when-an-admin-user-successfully-logs-in-via-internet-identity-they-are-redirected-to-admin-instead-of-remaining-on-the-current-page-or-being-redirected-to-home",
+      "title": "Debug and fix the authentication flow in LoginButton.tsx to ensure that when an admin user successfully logs in via Internet Identity, they are redirected to /admin instead of remaining on the current page or being redirected to home",
+      "reqIds": [
+        "REQ-26"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-verify-that-the-useisadmin-hook-in-loginbutton-tsx-correctly-fetches-and-returns-the-admin-status-after-authentication-is-complete-and-that-the-redirect-logic-waits-for-this-check-to-finish-before-executing",
+      "title": "Verify that the useIsAdmin hook in LoginButton.tsx correctly fetches and returns the admin status after authentication is complete, and that the redirect logic waits for this check to finish before executing",
+      "reqIds": [
+        "REQ-27"
       ],
       "version": 1
     }

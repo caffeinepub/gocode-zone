@@ -2,12 +2,10 @@
   "kind": "feature_evidence_report",
   "features": [
     {
-      "featureId": "feature-create-an-admin-page-route-admin-accessible-after-login-that-serves-as-the-admin-panel-dashboard",
-      "featureTitle": "Create an Admin page route (/admin) accessible after login that serves as the admin panel dashboard",
+      "featureId": "feature-debug-and-fix-the-authentication-flow-in-loginbutton-tsx-to-ensure-that-when-an-admin-user-successfully-logs-in-via-internet-identity-they-are-redirected-to-admin-instead-of-remaining-on-the-current-page-or-being-redirected-to-home",
+      "featureTitle": "Debug and fix the authentication flow in LoginButton.tsx to ensure that when an admin user successfully logs in via Internet Identity, they are redirected to /admin instead of remaining on the current page or being redirected to home",
       "files": [
-        "frontend/src/App.tsx",
-        "frontend/src/components/Navigation.tsx",
-        "frontend/src/pages/Admin.tsx"
+        "frontend/src/components/LoginButton.tsx"
       ],
       "components": [
         "core-infrastructure@1.0.2",
@@ -18,17 +16,15 @@
         "authorization@4.0.0"
       ],
       "testIds": [
-        "REQ-17"
+        "REQ-26"
       ],
       "confidence": "high"
     },
     {
-      "featureId": "feature-add-course-content-editing-functionality-allowing-admins-to-modify-unit-titles-descriptions-and-topics-for-all-4-course-units",
-      "featureTitle": "Add course content editing functionality allowing admins to modify unit titles, descriptions, and topics for all 4 course units",
+      "featureId": "feature-verify-that-the-useisadmin-hook-in-loginbutton-tsx-correctly-fetches-and-returns-the-admin-status-after-authentication-is-complete-and-that-the-redirect-logic-waits-for-this-check-to-finish-before-executing",
+      "featureTitle": "Verify that the useIsAdmin hook in LoginButton.tsx correctly fetches and returns the admin status after authentication is complete, and that the redirect logic waits for this check to finish before executing",
       "files": [
-        "frontend/src/components/admin/CourseEditor.tsx",
-        "frontend/src/hooks/useQueries.ts",
-        "frontend/src/pages/Course.tsx"
+        "frontend/src/components/LoginButton.tsx"
       ],
       "components": [
         "core-infrastructure@1.0.2",
@@ -39,89 +35,7 @@
         "authorization@4.0.0"
       ],
       "testIds": [
-        "REQ-18"
-      ],
-      "confidence": "high"
-    },
-    {
-      "featureId": "feature-add-announcement-posting-functionality-allowing-admins-to-create-and-publish-announcements-with-title-content-and-timestamp",
-      "featureTitle": "Add announcement posting functionality allowing admins to create and publish announcements with title, content, and timestamp",
-      "files": [
-        "frontend/src/components/AnnouncementsList.tsx",
-        "frontend/src/components/admin/AnnouncementManager.tsx",
-        "frontend/src/hooks/useQueries.ts",
-        "frontend/src/pages/Home.tsx"
-      ],
-      "components": [
-        "core-infrastructure@1.0.2",
-        "shadcn-ui@1.0.0",
-        "build-template-react@1.0.0",
-        "initial-app@1.0.0",
-        "github-export-icp-cli@1.0.0",
-        "authorization@4.0.0"
-      ],
-      "testIds": [
-        "REQ-19"
-      ],
-      "confidence": "high"
-    },
-    {
-      "featureId": "feature-add-lesson-upload-functionality-allowing-admins-to-upload-new-lessons-with-title-content-associated-unit-and-order",
-      "featureTitle": "Add lesson upload functionality allowing admins to upload new lessons with title, content, associated unit, and order",
-      "files": [
-        "frontend/src/components/admin/LessonManager.tsx",
-        "frontend/src/hooks/useQueries.ts"
-      ],
-      "components": [
-        "core-infrastructure@1.0.2",
-        "shadcn-ui@1.0.0",
-        "build-template-react@1.0.0",
-        "initial-app@1.0.0",
-        "github-export-icp-cli@1.0.0",
-        "authorization@4.0.0"
-      ],
-      "testIds": [
-        "REQ-20"
-      ],
-      "confidence": "high"
-    },
-    {
-      "featureId": "feature-add-vip-access-management-functionality-allowing-admins-to-grant-or-revoke-vip-status-for-users-by-principal-id",
-      "featureTitle": "Add VIP access management functionality allowing admins to grant or revoke VIP status for users by principal ID",
-      "files": [
-        "frontend/src/components/admin/VIPManager.tsx",
-        "frontend/src/hooks/useQueries.ts"
-      ],
-      "components": [
-        "core-infrastructure@1.0.2",
-        "shadcn-ui@1.0.0",
-        "build-template-react@1.0.0",
-        "initial-app@1.0.0",
-        "github-export-icp-cli@1.0.0",
-        "authorization@4.0.0"
-      ],
-      "testIds": [
-        "REQ-21"
-      ],
-      "confidence": "high"
-    },
-    {
-      "featureId": "feature-add-member-viewing-functionality-allowing-admins-to-see-a-list-of-all-registered-users-with-their-principal-ids-and-join-dates",
-      "featureTitle": "Add member viewing functionality allowing admins to see a list of all registered users with their principal IDs and join dates",
-      "files": [
-        "frontend/src/components/admin/MembersList.tsx",
-        "frontend/src/pages/Admin.tsx"
-      ],
-      "components": [
-        "core-infrastructure@1.0.2",
-        "shadcn-ui@1.0.0",
-        "build-template-react@1.0.0",
-        "initial-app@1.0.0",
-        "github-export-icp-cli@1.0.0",
-        "authorization@4.0.0"
-      ],
-      "testIds": [
-        "REQ-22"
+        "REQ-27"
       ],
       "confidence": "high"
     }
