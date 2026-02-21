@@ -1,12 +1,12 @@
 # Specification
 
 ## Summary
-**Goal:** Fix the admin redirect after login so that admin users are automatically redirected to /admin after successful Internet Identity authentication.
+**Goal:** Implement a dual authentication system with a secret admin login at /admin and a regular user login in the header.
 
 **Planned changes:**
-- Debug and fix the authentication flow in LoginButton.tsx to ensure proper redirect timing
-- Ensure the useIsAdmin hook correctly fetches admin status after authentication completes
-- Fix the redirect logic to wait for admin status verification before executing the redirect
-- Eliminate race conditions between authentication completion and admin status check
+- Create a dedicated admin login page at the /admin route with its own Internet Identity authentication interface
+- Remove automatic admin redirect logic from the header Login button so regular users stay on their current page after authenticating
+- Remove the Admin navigation link from the site navigation to keep /admin hidden
+- Update the Admin page to show the admin login interface directly instead of redirecting unauthenticated users
 
-**User-visible outcome:** Admin users will be automatically redirected to the /admin page immediately after logging in via Internet Identity, while non-admin users remain on their current page.
+**User-visible outcome:** Regular users authenticate via the header Login button and stay on their current page. Admins access a secret login at /admin by typing the URL directly, which is not visible in the navigation.

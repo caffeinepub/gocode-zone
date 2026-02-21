@@ -41,13 +41,13 @@ export function useSubmitContact() {
 }
 
 export function useIsCallerAdmin() {
-  const { actor, isFetching } = useActor();
+  const { actor, isFetching: actorFetching } = useActor();
   const { identity } = useInternetIdentity();
 
-  return useQuery<boolean>({
+  const query = useQuery<boolean>({
     queryKey: ['isCallerAdmin'],
     queryFn: async () => {
-      if (!actor) return false;
+      if (!actor) throw new Error('Actor not available');
       try {
         return await actor.isCallerAdmin();
       } catch (error) {
@@ -55,9 +55,16 @@ export function useIsCallerAdmin() {
         return false;
       }
     },
-    enabled: !!actor && !isFetching && !!identity,
+    enabled: !!actor && !actorFetching && !!identity,
     retry: false,
   });
+
+  // Return custom state that properly reflects actor dependency
+  return {
+    ...query,
+    isLoading: actorFetching || query.isLoading,
+    isFetched: !!actor && query.isFetched,
+  };
 }
 
 export function useGetCourseUnits() {

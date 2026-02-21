@@ -1,38 +1,74 @@
 {
   "kind": "implementation_plan",
   "version": "1.0",
-  "title": "Fix admin redirect after login not working",
+  "title": "Implement dual authentication system with secret admin login at /admin",
   "requirements": [
     {
-      "id": "REQ-26",
-      "summary": "Debug and fix the authentication flow in LoginButton.tsx to ensure admin users are redirected to /admin after successful Internet Identity login",
+      "id": "REQ-30",
+      "summary": "Create a dedicated admin login page at the /admin route with its own Internet Identity authentication interface, separate from the regular user login flow",
       "acceptanceCriteria": [
-        "After clicking Login and completing Internet Identity authentication, an admin user is automatically redirected to the /admin route",
-        "Non-admin users continue to remain on their current page after login",
-        "The redirect happens immediately after successful authentication without requiring additional clicks",
-        "The admin status check from the backend is properly awaited before determining the redirect destination"
+        "The /admin route displays a dedicated admin login page when accessed by unauthenticated users",
+        "The admin login page has its own Internet Identity authentication button",
+        "The admin login page is visually distinct from the regular site pages to indicate it's an admin interface",
+        "After successful authentication at /admin, users with admin privileges can access the admin panel",
+        "Non-admin users who authenticate at /admin see an access denied message"
       ],
       "file_operations": [
         {
-          "path": "frontend/src/components/LoginButton.tsx",
+          "path": "frontend/src/pages/Admin.tsx",
           "operation": "modify",
-          "description": "Fix the admin redirect logic by ensuring the useIsAdmin query is properly enabled after successful login and the redirect waits for the admin status check to complete. Add useEffect hook that monitors authentication state changes and admin status, then triggers navigation to /admin when both conditions are met. Ensure the isCallerAdmin query executes immediately after identity is available and the redirect logic waits for query.isFetched before determining the destination."
+          "description": "Modify the Admin page to conditionally render a dedicated admin login interface when users are not authenticated, instead of redirecting. The page should show: (1) an admin-themed login screen with its own Internet Identity authentication button when identity is null, (2) the full admin panel with tabs when authenticated and isAdmin is true, and (3) an access denied message with a link to return home when authenticated but isAdmin is false. The admin login interface should be visually distinct with admin-specific branding and messaging. Use the authorization component's authentication capabilities and ensure proper loading states are handled during authentication checks."
         }
       ]
     },
     {
-      "id": "REQ-27",
-      "summary": "Verify that the useIsAdmin hook correctly fetches and returns the admin status after authentication is complete, and that the redirect logic waits for this check to finish",
+      "id": "REQ-31",
+      "summary": "Remove the automatic admin redirect logic from the LoginButton component so that regular users who click the header Login button authenticate and remain on their current page",
       "acceptanceCriteria": [
-        "The useIsAdmin query is enabled and executes immediately after successful login",
-        "The redirect logic waits for the admin status query to return data before determining the destination",
-        "No race conditions exist between authentication completion and admin status check"
+        "The Login button in the header remains visible and functional for all users",
+        "When regular users click the header Login button and authenticate via Internet Identity, they stay on their current page",
+        "The LoginButton component no longer checks for admin status or performs admin-specific redirects",
+        "The header Login button is solely for regular user authentication"
       ],
       "file_operations": [
         {
           "path": "frontend/src/components/LoginButton.tsx",
           "operation": "modify",
-          "description": "Review and fix the integration between useInternetIdentity, useIsAdmin, and the redirect logic. Ensure useIsAdmin hook is called with proper dependency on the actor and identity state. Add proper state tracking to prevent race conditions between authentication completion and admin status query execution. Implement a useEffect that reacts to changes in both isAuthenticated and admin status (isAdmin data and isFetched state) to trigger the redirect only when admin status has been successfully fetched and confirmed."
+          "description": "Remove the admin-specific redirect logic that automatically navigates admin users to /admin after login. Remove the useNavigate hook, the isAdmin check from useIsCallerAdmin, and the useEffect that performs the redirect when identity changes. Keep the core authentication functionality including login/logout handlers, query cache clearing on logout, disabled state during logging-in status, and button text/styling. The button should only handle authentication state changes without any navigation side effects."
+        }
+      ]
+    },
+    {
+      "id": "REQ-32",
+      "summary": "Remove the Admin navigation link from the Navigation component so that the /admin route is not advertised or visible in the site navigation",
+      "acceptanceCriteria": [
+        "The Admin link is removed from both desktop and mobile navigation menus",
+        "Users cannot discover the /admin route through the navigation interface",
+        "The /admin route is only accessible by directly typing the URL",
+        "All other navigation links (Home, About, Course, Join Discord, VIP, Contact) remain functional"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/components/Navigation.tsx",
+          "operation": "modify",
+          "description": "Remove the conditional Admin navigation link from both the desktop navigation list and the mobile Sheet navigation. Remove the isAdmin state from useIsCallerAdmin hook and all related conditional rendering logic that displays the Admin link. Keep all other navigation links (Home, About, Course, Join Discord, VIP, Contact) intact in both desktop and mobile layouts. Ensure the active route highlighting and LoginButton integration remain functional."
+        }
+      ]
+    },
+    {
+      "id": "REQ-33",
+      "summary": "Update the Admin page component to check authentication status and display the admin login interface when users are not authenticated, rather than redirecting them away",
+      "acceptanceCriteria": [
+        "Unauthenticated users visiting /admin see the admin login interface on the same page",
+        "Authenticated admin users see the full admin panel with all management tabs",
+        "Authenticated non-admin users see an access denied message with a link to return home",
+        "The admin login interface is embedded within the /admin route, not a separate redirect"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/pages/Admin.tsx",
+          "operation": "modify",
+          "description": "Ensure the Admin page embeds authentication state checks directly in the component render logic. When identity is null (user not authenticated), display the embedded admin login interface with Internet Identity button on the /admin page itself. When identity exists and isAdmin is true, show the complete admin panel with all tabs (Announcements, Course Content, Lessons, VIP Access, Members). When identity exists but isAdmin is false, display an access denied screen with a home link. Remove any redirect logic that navigates users away from /admin. This operation consolidates the authentication flow changes from REQ-30 into a complete implementation that keeps all states on the /admin route."
         }
       ]
     }

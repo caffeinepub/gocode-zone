@@ -4,15 +4,11 @@ import { useState } from 'react';
 import { Button } from './ui/button';
 import { Sheet, SheetContent, SheetTrigger } from './ui/sheet';
 import LoginButton from './LoginButton';
-import { useIsCallerAdmin } from '../hooks/useQueries';
-import { useInternetIdentity } from '../hooks/useInternetIdentity';
 
 export default function Navigation() {
   const [isOpen, setIsOpen] = useState(false);
   const routerState = useRouterState();
   const currentPath = routerState.location.pathname;
-  const { identity } = useInternetIdentity();
-  const { data: isAdmin } = useIsCallerAdmin();
 
   const navLinks = [
     { path: '/', label: 'Home' },
@@ -48,16 +44,6 @@ export default function Navigation() {
                 </Button>
               </Link>
             ))}
-            {identity && isAdmin && (
-              <Link to="/admin">
-                <Button
-                  variant={isActive('/admin') ? 'default' : 'ghost'}
-                  className="font-medium"
-                >
-                  Admin
-                </Button>
-              </Link>
-            )}
           </nav>
           <div className="ml-4">
             <LoginButton />
@@ -86,16 +72,6 @@ export default function Navigation() {
                     </Button>
                   </Link>
                 ))}
-                {identity && isAdmin && (
-                  <Link to="/admin" onClick={() => setIsOpen(false)}>
-                    <Button
-                      variant={isActive('/admin') ? 'default' : 'ghost'}
-                      className="w-full justify-start text-lg"
-                    >
-                      Admin
-                    </Button>
-                  </Link>
-                )}
               </nav>
             </SheetContent>
           </Sheet>

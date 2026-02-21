@@ -1,53 +1,101 @@
 {
   "kind": "build_request",
-  "title": "Fix admin redirect after login not working",
+  "title": "Implement dual authentication system with secret admin login at /admin",
   "projectName": "GoCode Zone",
-  "priority": "high",
+  "priority": "normal",
   "requirements": [
     {
-      "id": "REQ-26",
-      "text": "Debug and fix the authentication flow in LoginButton.tsx to ensure that when an admin user successfully logs in via Internet Identity, they are redirected to /admin instead of remaining on the current page or being redirected to home",
+      "id": "REQ-30",
+      "text": "Create a dedicated admin login page at the /admin route with its own Internet Identity authentication interface, separate from the regular user login flow",
       "target": "frontend",
       "source": {
         "messageIds": [
-          "msg-user-no"
+          "msg-final"
         ],
         "quotes": [
-          "no"
+          "use /admin at the url",
+          "Access a secret admin login at the `/admin` URL path"
         ]
       },
       "acceptanceCriteria": [
-        "After clicking Login and completing Internet Identity authentication, an admin user is automatically redirected to the /admin route",
-        "Non-admin users continue to remain on their current page after login",
-        "The redirect happens immediately after successful authentication without requiring additional clicks",
-        "The admin status check from the backend is properly awaited before determining the redirect destination"
+        "The /admin route displays a dedicated admin login page when accessed by unauthenticated users",
+        "The admin login page has its own Internet Identity authentication button",
+        "The admin login page is visually distinct from the regular site pages to indicate it's an admin interface",
+        "After successful authentication at /admin, users with admin privileges can access the admin panel",
+        "Non-admin users who authenticate at /admin see an access denied message"
       ]
     },
     {
-      "id": "REQ-27",
-      "text": "Verify that the useIsAdmin hook in LoginButton.tsx correctly fetches and returns the admin status after authentication is complete, and that the redirect logic waits for this check to finish before executing",
+      "id": "REQ-31",
+      "text": "Remove the automatic admin redirect logic from the LoginButton component at /html[1]/body[1]/div[1]/div[1]/header[1]/div[1]/div[2]/button[1] so that regular users who click the header Login button authenticate and remain on their current page",
       "target": "frontend",
       "source": {
         "messageIds": [
-          "msg-user-no"
+          "msg-final"
+        ],
+        "quotes": [
+          "keep",
+          "Regular users use the existing Login button in the header"
         ]
       },
       "acceptanceCriteria": [
-        "The useIsAdmin query is enabled and executes immediately after successful login",
-        "The redirect logic waits for the admin status query to return data before determining the destination",
-        "No race conditions exist between authentication completion and admin status check"
+        "The Login button in the header remains visible and functional for all users",
+        "When regular users click the header Login button and authenticate via Internet Identity, they stay on their current page",
+        "The LoginButton component no longer checks for admin status or performs admin-specific redirects",
+        "The header Login button is solely for regular user authentication"
+      ]
+    },
+    {
+      "id": "REQ-32",
+      "text": "Remove the Admin navigation link from the Navigation component so that the /admin route is not advertised or visible in the site navigation",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-final"
+        ],
+        "quotes": [
+          "secret admin login",
+          "The `/admin` route won't be advertised anywhere in the regular UI"
+        ]
+      },
+      "acceptanceCriteria": [
+        "The Admin link is removed from both desktop and mobile navigation menus",
+        "Users cannot discover the /admin route through the navigation interface",
+        "The /admin route is only accessible by directly typing the URL",
+        "All other navigation links (Home, About, Course, Join Discord, VIP, Contact) remain functional"
+      ]
+    },
+    {
+      "id": "REQ-33",
+      "text": "Update the Admin page component to check authentication status and display the admin login interface when users are not authenticated, rather than redirecting them away",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-final"
+        ],
+        "quotes": [
+          "When an admin visits /admin directly, should they see a dedicated login page with its own authentication button"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Unauthenticated users visiting /admin see the admin login interface on the same page",
+        "Authenticated admin users see the full admin panel with all management tabs",
+        "Authenticated non-admin users see an access denied message with a link to return home",
+        "The admin login interface is embedded within the /admin route, not a separate redirect"
       ]
     }
   ],
   "constraints": [
-    "Do not modify the backend admin authorization logic",
-    "Maintain the existing Internet Identity authentication flow",
-    "Preserve the non-admin user experience (they should stay on current page after login)"
+    "Do not modify the backend authentication or authorization logic",
+    "Do not change the useInternetIdentity hook implementation",
+    "Do not alter the useActor hook or backend actor initialization",
+    "Maintain the existing admin authorization checks that verify principal IDs against the backend admin list"
   ],
   "nonGoals": [
-    "Changing the admin panel UI or functionality",
-    "Modifying the backend API endpoints",
-    "Adding new authentication methods"
+    "Adding new admin management features beyond authentication separation",
+    "Modifying how admin privileges are granted or stored in the backend",
+    "Creating additional authentication methods beyond Internet Identity",
+    "Adding password-based authentication or multi-factor authentication"
   ],
   "imageRequirements": {
     "required": [],

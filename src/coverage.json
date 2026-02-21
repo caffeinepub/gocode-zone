@@ -1,18 +1,29 @@
 {
   "kind": "coverage_report",
   "version": "1.0",
-  "generatedAt": "2026-02-21T00:47:51.739Z",
+  "generatedAt": "2026-02-21T01:10:09.362Z",
   "sources": {
     "buildRequest": true,
     "implementationPlan": true
   },
   "requirements": {
-    "total": 2,
-    "implemented": 2,
+    "total": 4,
+    "implemented": 4,
     "items": [
       {
-        "id": "REQ-26",
-        "summary": "Debug and fix the authentication flow in LoginButton.tsx to ensure that when an admin user successfully logs in via Internet Identity, they are redirected to /admin instead of remaining on the current page or being redirected to home",
+        "id": "REQ-30",
+        "summary": "Create a dedicated admin login page at the /admin route with its own Internet Identity authentication interface, separate from the regular user login flow",
+        "status": "implemented",
+        "plannedFiles": [
+          "frontend/src/pages/Admin.tsx"
+        ],
+        "matchedFiles": [
+          "frontend/src/pages/Admin.tsx"
+        ]
+      },
+      {
+        "id": "REQ-31",
+        "summary": "Remove the automatic admin redirect logic from the LoginButton component at /html[1]/body[1]/div[1]/div[1]/header[1]/div[1]/div[2]/button[1] so that regular users who click the header Login button authenticate and remain on their current page",
         "status": "implemented",
         "plannedFiles": [
           "frontend/src/components/LoginButton.tsx"
@@ -22,14 +33,25 @@
         ]
       },
       {
-        "id": "REQ-27",
-        "summary": "Verify that the useIsAdmin hook in LoginButton.tsx correctly fetches and returns the admin status after authentication is complete, and that the redirect logic waits for this check to finish before executing",
+        "id": "REQ-32",
+        "summary": "Remove the Admin navigation link from the Navigation component so that the /admin route is not advertised or visible in the site navigation",
         "status": "implemented",
         "plannedFiles": [
-          "frontend/src/components/LoginButton.tsx"
+          "frontend/src/components/Navigation.tsx"
         ],
         "matchedFiles": [
-          "frontend/src/components/LoginButton.tsx"
+          "frontend/src/components/Navigation.tsx"
+        ]
+      },
+      {
+        "id": "REQ-33",
+        "summary": "Update the Admin page component to check authentication status and display the admin login interface when users are not authenticated, rather than redirecting them away",
+        "status": "implemented",
+        "plannedFiles": [
+          "frontend/src/pages/Admin.tsx"
+        ],
+        "matchedFiles": [
+          "frontend/src/pages/Admin.tsx"
         ]
       }
     ]
@@ -40,6 +62,8 @@
     "frontend-file-summaries.txt",
     "frontend-implementation-plan.json",
     "frontend/src/components/LoginButton.tsx",
+    "frontend/src/components/Navigation.tsx",
+    "frontend/src/pages/Admin.tsx",
     "project_state.json",
     "scratch/component-selection.json",
     "spec.md",

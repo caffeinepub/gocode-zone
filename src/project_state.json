@@ -1,6 +1,6 @@
 {
   "schemaVersion": "1.0.0",
-  "projectStateVersion": 17,
+  "projectStateVersion": 21,
   "summary": "GoCode Zone - A community learning platform for Go programming with courses, quizzes, tests, and Discord integration",
   "architectural_notes": [
     "Multi-page website structure with Home, About, Course, Join Discord, and Privacy Policy as core pages",
@@ -8,11 +8,10 @@
     "Course curriculum organized into 4 units with quizzes and tests",
     "Optional VIP/Premium tier for advanced content",
     "Contact email: gocodezone@googlegroups.com",
-    "Admin panel functionality includes: course content editing, announcements, lesson uploads, VIP access management, and optional member viewing"
+    "Admin panel functionality includes: course content editing, announcements, lesson uploads, VIP access management, and optional member viewing",
+    "Dual authentication system: regular users authenticate via header Login button, admins use secret /admin route with separate login interface"
   ],
-  "known_issues": [
-    "After login, users are redirected to the home page instead of the admin panel"
-  ],
+  "known_issues": [],
   "isFixRequest": true,
   "existing_features": [
     {
@@ -214,6 +213,54 @@
         "REQ-27"
       ],
       "version": 1
+    },
+    {
+      "id": "feature-investigate-and-fix-the-authentication-flow-in-loginbutton-tsx-to-ensure-admin-users-are-redirected-to-admin-immediately-after-successful-internet-identity-authentication-instead-of-remaining-on-the-home-page",
+      "title": "Investigate and fix the authentication flow in LoginButton.tsx to ensure admin users are redirected to /admin immediately after successful Internet Identity authentication, instead of remaining on the home page",
+      "reqIds": [
+        "REQ-28"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-ensure-the-useisadmin-hook-correctly-fetches-and-returns-admin-status-after-authentication-completes-and-verify-that-the-redirect-logic-in-loginbutton-tsx-waits-for-this-check-before-executing-the-navigation",
+      "title": "Ensure the useIsAdmin hook correctly fetches and returns admin status after authentication completes, and verify that the redirect logic in LoginButton.tsx waits for this check before executing the navigation",
+      "reqIds": [
+        "REQ-29"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-create-a-dedicated-admin-login-page-at-the-admin-route-with-its-own-internet-identity-authentication-interface-separate-from-the-regular-user-login-flow",
+      "title": "Create a dedicated admin login page at the /admin route with its own Internet Identity authentication interface, separate from the regular user login flow",
+      "reqIds": [
+        "REQ-30"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-remove-the-automatic-admin-redirect-logic-from-the-loginbutton-component-at-html-1-body-1-div-1-div-1-header-1-div-1-div-2-button-1-so-that-regular-users-who-click-the-header-login-button-authenticate-and-remain-on-their-current-page",
+      "title": "Remove the automatic admin redirect logic from the LoginButton component at /html[1]/body[1]/div[1]/div[1]/header[1]/div[1]/div[2]/button[1] so that regular users who click the header Login button authenticate and remain on their current page",
+      "reqIds": [
+        "REQ-31"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-remove-the-admin-navigation-link-from-the-navigation-component-so-that-the-admin-route-is-not-advertised-or-visible-in-the-site-navigation",
+      "title": "Remove the Admin navigation link from the Navigation component so that the /admin route is not advertised or visible in the site navigation",
+      "reqIds": [
+        "REQ-32"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-update-the-admin-page-component-to-check-authentication-status-and-display-the-admin-login-interface-when-users-are-not-authenticated-rather-than-redirecting-them-away",
+      "title": "Update the Admin page component to check authentication status and display the admin login interface when users are not authenticated, rather than redirecting them away",
+      "reqIds": [
+        "REQ-33"
+      ],
+      "version": 1
     }
   ],
   "new_feature_requests": [
@@ -303,6 +350,18 @@
       "reqIds": [
         "REQ-23"
       ],
+      "status": "pending"
+    },
+    {
+      "id": "AR-21",
+      "summary": "Create separate admin authentication at /admin route with dedicated login interface, distinct from regular user login in header",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-22",
+      "summary": "Keep existing header Login button for regular user authentication with Internet Identity",
+      "reqIds": [],
       "status": "pending"
     }
   ],

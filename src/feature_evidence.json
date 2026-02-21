@@ -2,10 +2,10 @@
   "kind": "feature_evidence_report",
   "features": [
     {
-      "featureId": "feature-debug-and-fix-the-authentication-flow-in-loginbutton-tsx-to-ensure-that-when-an-admin-user-successfully-logs-in-via-internet-identity-they-are-redirected-to-admin-instead-of-remaining-on-the-current-page-or-being-redirected-to-home",
-      "featureTitle": "Debug and fix the authentication flow in LoginButton.tsx to ensure that when an admin user successfully logs in via Internet Identity, they are redirected to /admin instead of remaining on the current page or being redirected to home",
+      "featureId": "feature-create-a-dedicated-admin-login-page-at-the-admin-route-with-its-own-internet-identity-authentication-interface-separate-from-the-regular-user-login-flow",
+      "featureTitle": "Create a dedicated admin login page at the /admin route with its own Internet Identity authentication interface, separate from the regular user login flow",
       "files": [
-        "frontend/src/components/LoginButton.tsx"
+        "frontend/src/pages/Admin.tsx"
       ],
       "components": [
         "core-infrastructure@1.0.2",
@@ -16,13 +16,13 @@
         "authorization@4.0.0"
       ],
       "testIds": [
-        "REQ-26"
+        "REQ-30"
       ],
       "confidence": "high"
     },
     {
-      "featureId": "feature-verify-that-the-useisadmin-hook-in-loginbutton-tsx-correctly-fetches-and-returns-the-admin-status-after-authentication-is-complete-and-that-the-redirect-logic-waits-for-this-check-to-finish-before-executing",
-      "featureTitle": "Verify that the useIsAdmin hook in LoginButton.tsx correctly fetches and returns the admin status after authentication is complete, and that the redirect logic waits for this check to finish before executing",
+      "featureId": "feature-remove-the-automatic-admin-redirect-logic-from-the-loginbutton-component-at-html-1-body-1-div-1-div-1-header-1-div-1-div-2-button-1-so-that-regular-users-who-click-the-header-login-button-authenticate-and-remain-on-their-current-page",
+      "featureTitle": "Remove the automatic admin redirect logic from the LoginButton component at /html[1]/body[1]/div[1]/div[1]/header[1]/div[1]/div[2]/button[1] so that regular users who click the header Login button authenticate and remain on their current page",
       "files": [
         "frontend/src/components/LoginButton.tsx"
       ],
@@ -35,7 +35,45 @@
         "authorization@4.0.0"
       ],
       "testIds": [
-        "REQ-27"
+        "REQ-31"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-remove-the-admin-navigation-link-from-the-navigation-component-so-that-the-admin-route-is-not-advertised-or-visible-in-the-site-navigation",
+      "featureTitle": "Remove the Admin navigation link from the Navigation component so that the /admin route is not advertised or visible in the site navigation",
+      "files": [
+        "frontend/src/components/Navigation.tsx"
+      ],
+      "components": [
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0",
+        "authorization@4.0.0"
+      ],
+      "testIds": [
+        "REQ-32"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-update-the-admin-page-component-to-check-authentication-status-and-display-the-admin-login-interface-when-users-are-not-authenticated-rather-than-redirecting-them-away",
+      "featureTitle": "Update the Admin page component to check authentication status and display the admin login interface when users are not authenticated, rather than redirecting them away",
+      "files": [
+        "frontend/src/pages/Admin.tsx"
+      ],
+      "components": [
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0",
+        "authorization@4.0.0"
+      ],
+      "testIds": [
+        "REQ-33"
       ],
       "confidence": "high"
     }
