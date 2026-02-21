@@ -1,16 +1,16 @@
 {
   "schemaVersion": "1.0.0",
-  "projectStateVersion": 3,
+  "projectStateVersion": 7,
   "summary": "GoCode Zone - A community learning platform for Go programming with courses, quizzes, tests, and Discord integration",
   "architectural_notes": [
     "Multi-page website structure with Home, About, Course, Join Discord, and Privacy Policy as core pages",
     "Discord integration for community access",
     "Course curriculum organized into 4 units with quizzes and tests",
-    "Optional VIP/Premium tier for advanced content"
+    "Optional VIP/Premium tier for advanced content",
+    "Contact email: gocodezone@googlegroups.com"
   ],
   "known_issues": [],
   "isFixRequest": false,
-  "imageRequirements": "## Required Images\n- Go gopher mascot or programming-themed hero illustration for home page banner (hero-gopher.dim_1200x400.png)\n- Icon set for Why Join benefits section: beginner-friendly, quizzes, coding challenges, community icons (benefits-icons.dim_400x400.png)",
   "existing_features": [
     {
       "id": "feature-create-a-home-page-featuring-a-hero-section-with-the-title-welcome-to-gocode-zone-a-subtitle-describing-the-community-as-learn-go-from-beginner-to-advanced-a-prominent-join-discord-button-and-a-why-join-section-listing-at-least-4-bullet-points-beginner-friendly-lessons-weekly-quizzes-tests-coding-challenges-and-supportive-community",
@@ -105,6 +105,22 @@
       "title": "Apply a cohesive visual design theme across all pages that conveys professionalism and approachability for a learning community, with consistent typography, color palette emphasizing trust and clarity, and clean layout patterns suitable for educational content",
       "reqIds": [
         "REQ-12"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-update-all-discord-invite-links-throughout-the-site-to-use-the-new-url-https-discord-gg-y5ebsaf8r2",
+      "title": "Update all Discord invite links throughout the site to use the new URL: https://discord.gg/y5EBSaf8r2",
+      "reqIds": [
+        "REQ-13"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-update-the-contact-email-address-displayed-on-the-contact-page-to-gocodezone-googlegroups-com",
+      "title": "Update the contact email address displayed on the Contact page to gocodezone@googlegroups.com",
+      "reqIds": [
+        "REQ-14"
       ],
       "version": 1
     }

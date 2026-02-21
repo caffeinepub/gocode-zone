@@ -48,7 +48,7 @@ export default function Contact() {
                         Join our Discord server for real-time support from the community and our team.
                       </p>
                       <a
-                        href="https://discord.gg/your-invite-link"
+                        href="https://discord.gg/y5EBSaf8r2"
                         target="_blank"
                         rel="noopener noreferrer"
                         className="text-go-blue hover:underline font-medium"
@@ -69,13 +69,13 @@ export default function Contact() {
                     <div>
                       <h3 className="font-semibold text-lg mb-2">Email</h3>
                       <p className="text-muted-foreground mb-3">
-                        For general inquiries, partnerships, or detailed questions.
+                        Send us an email and we'll get back to you as soon as possible.
                       </p>
                       <a
-                        href="mailto:hello@gocodezone.com"
+                        href="mailto:gocodezone@googlegroups.com"
                         className="text-go-blue hover:underline font-medium"
                       >
-                        hello@gocodezone.com
+                        gocodezone@googlegroups.com
                       </a>
                     </div>
                   </div>
@@ -91,7 +91,7 @@ export default function Contact() {
                     <div>
                       <h3 className="font-semibold text-lg mb-2">VIP Support</h3>
                       <p className="text-muted-foreground mb-3">
-                        VIP members get priority support in dedicated channels.
+                        VIP members get priority support with faster response times.
                       </p>
                       <a
                         href="/vip"

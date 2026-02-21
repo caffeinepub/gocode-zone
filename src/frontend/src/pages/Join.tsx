@@ -61,7 +61,7 @@ export default function Join() {
             </p>
             <Button size="lg" className="text-lg px-8" asChild>
               <a
-                href="https://discord.gg/your-invite-link"
+                href="https://discord.gg/y5EBSaf8r2"
                 target="_blank"
                 rel="noopener noreferrer"
               >
@@ -160,7 +160,7 @@ export default function Join() {
           </p>
           <Button size="lg" className="text-lg px-8" asChild>
             <a
-              href="https://discord.gg/your-invite-link"
+              href="https://discord.gg/y5EBSaf8r2"
               target="_blank"
               rel="noopener noreferrer"
             >

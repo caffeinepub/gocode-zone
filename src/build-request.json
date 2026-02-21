@@ -1,264 +1,39 @@
 {
   "kind": "build_request",
-  "title": "Build GoCode Zone learning platform with multi-page structure",
+  "title": "Update contact email to gocodezone@googlegroups.com",
   "projectName": "GoCode Zone",
   "priority": "normal",
   "requirements": [
     {
-      "id": "REQ-1",
-      "text": "Create a Home page featuring a hero section with the title 'Welcome to GoCode Zone', a subtitle describing the community as 'Learn Go from Beginner to Advanced', a prominent 'Join Discord' button, and a 'Why Join?' section listing at least 4 bullet points: Beginner-friendly lessons, Weekly quizzes & tests, Coding challenges, and Supportive community",
+      "id": "REQ-14",
+      "text": "Update the contact email address displayed on the Contact page to gocodezone@googlegroups.com",
       "target": "frontend",
       "source": {
         "messageIds": [
-          "msg-2"
+          "msg-user-latest"
         ],
         "quotes": [
-          "🔥 Big Title: Welcome to GoCode Zone",
-          "Learn Go from Beginner to Advanced",
-          "Join Discord button",
-          "Why join? (3–5 bullet points)"
+          "here is the contact  email (gocodezone@googlegroups.com)"
         ]
       },
       "acceptanceCriteria": [
-        "Home page displays 'Welcome to GoCode Zone' as the main heading",
-        "Subtitle reads 'Learn Go from Beginner to Advanced'",
-        "Join Discord button is prominently displayed",
-        "Why Join section lists exactly 4 benefits: Beginner-friendly lessons, Weekly quizzes & tests, Coding challenges, Supportive community"
-      ]
-    },
-    {
-      "id": "REQ-2",
-      "text": "Create an About page explaining what Go (Golang) is, what GoCode Zone is, and who the platform is for (Beginners, Students, Developers)",
-      "target": "frontend",
-      "source": {
-        "messageIds": [
-          "msg-2"
-        ],
-        "quotes": [
-          "What is Go (Golang)?",
-          "What is GoCode Zone?",
-          "Who is it for?"
-        ]
-      },
-      "acceptanceCriteria": [
-        "About page includes a section explaining Go (Golang)",
-        "About page describes GoCode Zone's mission and purpose",
-        "About page lists three target audiences: Beginners, Students, Developers"
-      ]
-    },
-    {
-      "id": "REQ-3",
-      "text": "Create a Syllabus/Course page displaying 4 units with their titles and descriptions: Unit 1 – Getting Started, Unit 2 – Variables & Data Types, Unit 3 – If & Switch, Unit 4 – Loops. Each unit must show what learners will learn and mention that Quiz + Big Test are included",
-      "target": "frontend",
-      "source": {
-        "messageIds": [
-          "msg-2"
-        ],
-        "quotes": [
-          "Unit 1 – Getting Started",
-          "Unit 2 – Variables & Data Types",
-          "Unit 3 – If & Switch",
-          "Unit 4 – Loops",
-          "What they will learn",
-          "Quiz + Big Test included"
-        ]
-      },
-      "acceptanceCriteria": [
-        "Syllabus page lists all 4 units with exact titles provided",
-        "Each unit displays learning objectives/topics",
-        "Each unit clearly indicates Quiz + Big Test are included"
-      ]
-    },
-    {
-      "id": "REQ-4",
-      "text": "Create a Join/Discord page with a large 'Join Our Discord' button, Discord invite links, an explanation of what happens after joining, and a mention of community rules",
-      "target": "frontend",
-      "source": {
-        "messageIds": [
-          "msg-2"
-        ],
-        "quotes": [
-          "Big 'Join Our Discord' button",
-          "Your invite links",
-          "Short explanation of what happens after joining",
-          "Community rules mention"
-        ]
-      },
-      "acceptanceCriteria": [
-        "Join page displays a prominent 'Join Our Discord' button",
-        "Page includes placeholder for Discord invite links",
-        "Page explains the post-join experience",
-        "Community rules are mentioned or linked"
-      ]
-    },
-    {
-      "id": "REQ-5",
-      "text": "Create a VIP/Premium page describing VIP membership benefits, pricing information, and extra features such as private help, advanced lessons, and projects",
-      "target": "frontend",
-      "source": {
-        "messageIds": [
-          "msg-2"
-        ],
-        "quotes": [
-          "What VIP includes",
-          "Price",
-          "Extra features (private help, advanced lessons, projects)"
-        ]
-      },
-      "acceptanceCriteria": [
-        "VIP page lists VIP membership benefits",
-        "Page includes pricing section",
-        "Page highlights extra features: private help, advanced lessons, projects"
-      ]
-    },
-    {
-      "id": "REQ-6",
-      "text": "Create a Privacy Policy page with an effective date, contact method, and data handling explanation",
-      "target": "frontend",
-      "source": {
-        "messageIds": [
-          "msg-2"
-        ],
-        "quotes": [
-          "Effective date",
-          "Contact method",
-          "Data handling explanation"
-        ]
-      },
-      "acceptanceCriteria": [
-        "Privacy Policy page displays an effective date",
-        "Page includes contact information",
-        "Page contains clear data handling explanations"
-      ]
-    },
-    {
-      "id": "REQ-7",
-      "text": "Add a Testimonials section to display user feedback and community experiences",
-      "target": "frontend",
-      "source": {
-        "messageIds": [
-          "msg-2"
-        ],
-        "quotes": [
-          "Testimonials section (even if small)"
-        ]
-      },
-      "acceptanceCriteria": [
-        "Testimonials section exists and can display multiple testimonials",
-        "Section includes placeholder testimonial content"
-      ]
-    },
-    {
-      "id": "REQ-8",
-      "text": "Add an FAQ section to answer common questions about the platform and courses",
-      "target": "frontend",
-      "source": {
-        "messageIds": [
-          "msg-2"
-        ],
-        "quotes": [
-          "FAQ section"
-        ]
-      },
-      "acceptanceCriteria": [
-        "FAQ section is present with at least 3-5 common questions",
-        "Questions and answers are clearly formatted"
-      ]
-    },
-    {
-      "id": "REQ-9",
-      "text": "Add a Contact form allowing users to send messages or inquiries",
-      "target": "both",
-      "source": {
-        "messageIds": [
-          "msg-2"
-        ],
-        "quotes": [
-          "Contact form"
-        ]
-      },
-      "acceptanceCriteria": [
-        "Contact form includes fields for name, email, and message",
-        "Form has validation and submission handling",
-        "Backend stores or processes contact submissions"
-      ]
-    },
-    {
-      "id": "REQ-10",
-      "text": "Create a site-wide Footer component containing Discord link, website name 'GoCode Zone', current year, and link to Privacy Policy page",
-      "target": "frontend",
-      "source": {
-        "messageIds": [
-          "msg-2"
-        ],
-        "quotes": [
-          "Footer with: Discord link, Website name, Year, Privacy Policy link"
-        ]
-      },
-      "acceptanceCriteria": [
-        "Footer displays on all pages",
-        "Footer includes Discord link placeholder",
-        "Footer shows 'GoCode Zone' and current year",
-        "Footer links to Privacy Policy page"
-      ]
-    },
-    {
-      "id": "REQ-11",
-      "text": "Implement site-wide navigation linking to all pages: Home, About, Course (Syllabus), Join Discord, VIP, Privacy Policy",
-      "target": "frontend",
-      "source": {
-        "messageIds": [
-          "msg-2"
-        ],
-        "quotes": [
-          "Home",
-          "About",
-          "Course",
-          "Join Discord",
-          "Privacy Policy"
-        ]
-      },
-      "acceptanceCriteria": [
-        "Navigation menu is accessible from all pages",
-        "All required pages are linked in navigation",
-        "Navigation is responsive and user-friendly"
-      ]
-    },
-    {
-      "id": "REQ-12",
-      "text": "Apply a cohesive visual design theme across all pages that conveys professionalism and approachability for a learning community, with consistent typography, color palette emphasizing trust and clarity, and clean layout patterns suitable for educational content",
-      "target": "frontend",
-      "source": {
-        "messageIds": [
-          "msg-2"
-        ]
-      },
-      "acceptanceCriteria": [
-        "All pages share consistent design language",
-        "Color scheme and typography support readability and learning focus",
-        "Layout promotes easy navigation and content hierarchy"
+        "The Contact page displays gocodezone@googlegroups.com as the contact email",
+        "The email is displayed in the alternative contact methods section",
+        "The email address is clickable as a mailto link"
       ]
     }
   ],
   "constraints": [
-    "Use React with TypeScript for frontend implementation",
-    "Apply Tailwind CSS for styling",
-    "Maintain single-actor architecture in Motoko backend",
-    "Do not modify immutable frontend paths (useInternetIdentity, useActor, main.tsx, ui components)"
+    "Do not modify the backend Contact type or submission logic",
+    "Maintain the existing Contact page layout and design"
   ],
   "nonGoals": [
-    "Real-time chat or messaging features",
-    "Integration with actual Discord API for automated user management",
-    "Payment processing for VIP memberships",
-    "User authentication beyond Internet Identity",
-    "Quiz or test functionality implementation",
-    "Course content creation or management system"
+    "Changing the Discord invite link",
+    "Modifying the contact form submission functionality",
+    "Adding new contact methods"
   ],
   "imageRequirements": {
-    "required": [
-      "Go gopher mascot or programming-themed hero illustration for home page banner (hero-gopher.dim_1200x400.png)",
-      "Icon set for Why Join benefits section: beginner-friendly, quizzes, coding challenges, community icons (benefits-icons.dim_400x400.png)"
-    ],
+    "required": [],
     "edits": []
   }
 }

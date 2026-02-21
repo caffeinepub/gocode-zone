@@ -57,7 +57,7 @@ export default function Footer() {
             <h3 className="text-sm font-semibold">Community</h3>
             <div className="flex items-center space-x-4">
               <a
-                href="https://discord.gg/your-invite-link"
+                href="https://discord.gg/y5EBSaf8r2"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-center space-x-2 text-muted-foreground hover:text-foreground transition-colors"
