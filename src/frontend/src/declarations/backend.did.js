@@ -8,7 +8,18 @@
 
 import { IDL } from '@icp-sdk/core/candid';
 
+export const UserRole = IDL.Variant({
+  'admin' : IDL.Null,
+  'user' : IDL.Null,
+  'guest' : IDL.Null,
+});
 export const Time = IDL.Int;
+export const Announcement = IDL.Record({
+  'id' : IDL.Nat,
+  'title' : IDL.Text,
+  'content' : IDL.Text,
+  'timestamp' : Time,
+});
 export const Contact = IDL.Record({
   'name' : IDL.Text,
   'sender' : IDL.Principal,
@@ -16,16 +27,73 @@ export const Contact = IDL.Record({
   'timestamp' : Time,
   'emailAddress' : IDL.Text,
 });
+export const Lesson = IDL.Record({
+  'id' : IDL.Nat,
+  'title' : IDL.Text,
+  'associatedUnit' : IDL.Nat,
+  'content' : IDL.Text,
+  'order' : IDL.Nat,
+  'timestamp' : Time,
+});
+export const UserProfile = IDL.Record({
+  'name' : IDL.Text,
+  'email' : IDL.Text,
+});
+export const CourseUnit = IDL.Record({
+  'title' : IDL.Text,
+  'description' : IDL.Text,
+  'topics' : IDL.Vec(IDL.Text),
+});
+export const Member = IDL.Record({
+  'joinDate' : Time,
+  'isVIP' : IDL.Bool,
+  'principalId' : IDL.Principal,
+});
 
 export const idlService = IDL.Service({
+  '_initializeAccessControlWithSecret' : IDL.Func([IDL.Text], [], []),
+  'addLesson' : IDL.Func([IDL.Nat, IDL.Text, IDL.Text, IDL.Nat], [IDL.Nat], []),
+  'assignCallerUserRole' : IDL.Func([IDL.Principal, UserRole], [], []),
+  'getAllAnnouncements' : IDL.Func([], [IDL.Vec(Announcement)], ['query']),
   'getAllContacts' : IDL.Func([], [IDL.Vec(Contact)], ['query']),
+  'getAllLessons' : IDL.Func([], [IDL.Vec(Lesson)], ['query']),
+  'getCallerUserProfile' : IDL.Func([], [IDL.Opt(UserProfile)], ['query']),
+  'getCallerUserRole' : IDL.Func([], [UserRole], ['query']),
+  'getCourseUnits' : IDL.Func([], [IDL.Vec(CourseUnit)], ['query']),
+  'getUserProfile' : IDL.Func(
+      [IDL.Principal],
+      [IDL.Opt(UserProfile)],
+      ['query'],
+    ),
+  'getVIPMembers' : IDL.Func([], [IDL.Vec(Member)], ['query']),
+  'initNewMember' : IDL.Func([], [Time], []),
+  'isCallerAdmin' : IDL.Func([], [IDL.Bool], ['query']),
   'onContact' : IDL.Func([IDL.Text, IDL.Text, IDL.Text], [], []),
+  'publishAnnouncement' : IDL.Func([IDL.Text, IDL.Text], [], []),
+  'saveCallerUserProfile' : IDL.Func([UserProfile], [], []),
+  'updateCourseContent' : IDL.Func(
+      [IDL.Nat, IDL.Text, IDL.Text, IDL.Vec(IDL.Text)],
+      [],
+      [],
+    ),
+  'updateVIPStatus' : IDL.Func([IDL.Principal, IDL.Bool], [], []),
 });
 
 export const idlInitArgs = [];
 
 export const idlFactory = ({ IDL }) => {
+  const UserRole = IDL.Variant({
+    'admin' : IDL.Null,
+    'user' : IDL.Null,
+    'guest' : IDL.Null,
+  });
   const Time = IDL.Int;
+  const Announcement = IDL.Record({
+    'id' : IDL.Nat,
+    'title' : IDL.Text,
+    'content' : IDL.Text,
+    'timestamp' : Time,
+  });
   const Contact = IDL.Record({
     'name' : IDL.Text,
     'sender' : IDL.Principal,
@@ -33,10 +101,57 @@ export const idlFactory = ({ IDL }) => {
     'timestamp' : Time,
     'emailAddress' : IDL.Text,
   });
+  const Lesson = IDL.Record({
+    'id' : IDL.Nat,
+    'title' : IDL.Text,
+    'associatedUnit' : IDL.Nat,
+    'content' : IDL.Text,
+    'order' : IDL.Nat,
+    'timestamp' : Time,
+  });
+  const UserProfile = IDL.Record({ 'name' : IDL.Text, 'email' : IDL.Text });
+  const CourseUnit = IDL.Record({
+    'title' : IDL.Text,
+    'description' : IDL.Text,
+    'topics' : IDL.Vec(IDL.Text),
+  });
+  const Member = IDL.Record({
+    'joinDate' : Time,
+    'isVIP' : IDL.Bool,
+    'principalId' : IDL.Principal,
+  });
   
   return IDL.Service({
+    '_initializeAccessControlWithSecret' : IDL.Func([IDL.Text], [], []),
+    'addLesson' : IDL.Func(
+        [IDL.Nat, IDL.Text, IDL.Text, IDL.Nat],
+        [IDL.Nat],
+        [],
+      ),
+    'assignCallerUserRole' : IDL.Func([IDL.Principal, UserRole], [], []),
+    'getAllAnnouncements' : IDL.Func([], [IDL.Vec(Announcement)], ['query']),
     'getAllContacts' : IDL.Func([], [IDL.Vec(Contact)], ['query']),
+    'getAllLessons' : IDL.Func([], [IDL.Vec(Lesson)], ['query']),
+    'getCallerUserProfile' : IDL.Func([], [IDL.Opt(UserProfile)], ['query']),
+    'getCallerUserRole' : IDL.Func([], [UserRole], ['query']),
+    'getCourseUnits' : IDL.Func([], [IDL.Vec(CourseUnit)], ['query']),
+    'getUserProfile' : IDL.Func(
+        [IDL.Principal],
+        [IDL.Opt(UserProfile)],
+        ['query'],
+      ),
+    'getVIPMembers' : IDL.Func([], [IDL.Vec(Member)], ['query']),
+    'initNewMember' : IDL.Func([], [Time], []),
+    'isCallerAdmin' : IDL.Func([], [IDL.Bool], ['query']),
     'onContact' : IDL.Func([IDL.Text, IDL.Text, IDL.Text], [], []),
+    'publishAnnouncement' : IDL.Func([IDL.Text, IDL.Text], [], []),
+    'saveCallerUserProfile' : IDL.Func([UserProfile], [], []),
+    'updateCourseContent' : IDL.Func(
+        [IDL.Nat, IDL.Text, IDL.Text, IDL.Vec(IDL.Text)],
+        [],
+        [],
+      ),
+    'updateVIPStatus' : IDL.Func([IDL.Principal, IDL.Bool], [], []),
   });
 };
 

@@ -10,6 +10,12 @@ import type { ActorMethod } from '@icp-sdk/core/agent';
 import type { IDL } from '@icp-sdk/core/candid';
 import type { Principal } from '@icp-sdk/core/principal';
 
+export interface Announcement {
+  'id' : bigint,
+  'title' : string,
+  'content' : string,
+  'timestamp' : Time,
+}
 export interface Contact {
   'name' : string,
   'sender' : Principal,
@@ -17,10 +23,51 @@ export interface Contact {
   'timestamp' : Time,
   'emailAddress' : string,
 }
+export interface CourseUnit {
+  'title' : string,
+  'description' : string,
+  'topics' : Array<string>,
+}
+export interface Lesson {
+  'id' : bigint,
+  'title' : string,
+  'associatedUnit' : bigint,
+  'content' : string,
+  'order' : bigint,
+  'timestamp' : Time,
+}
+export interface Member {
+  'joinDate' : Time,
+  'isVIP' : boolean,
+  'principalId' : Principal,
+}
 export type Time = bigint;
+export interface UserProfile { 'name' : string, 'email' : string }
+export type UserRole = { 'admin' : null } |
+  { 'user' : null } |
+  { 'guest' : null };
 export interface _SERVICE {
+  '_initializeAccessControlWithSecret' : ActorMethod<[string], undefined>,
+  'addLesson' : ActorMethod<[bigint, string, string, bigint], bigint>,
+  'assignCallerUserRole' : ActorMethod<[Principal, UserRole], undefined>,
+  'getAllAnnouncements' : ActorMethod<[], Array<Announcement>>,
   'getAllContacts' : ActorMethod<[], Array<Contact>>,
+  'getAllLessons' : ActorMethod<[], Array<Lesson>>,
+  'getCallerUserProfile' : ActorMethod<[], [] | [UserProfile]>,
+  'getCallerUserRole' : ActorMethod<[], UserRole>,
+  'getCourseUnits' : ActorMethod<[], Array<CourseUnit>>,
+  'getUserProfile' : ActorMethod<[Principal], [] | [UserProfile]>,
+  'getVIPMembers' : ActorMethod<[], Array<Member>>,
+  'initNewMember' : ActorMethod<[], Time>,
+  'isCallerAdmin' : ActorMethod<[], boolean>,
   'onContact' : ActorMethod<[string, string, string], undefined>,
+  'publishAnnouncement' : ActorMethod<[string, string], undefined>,
+  'saveCallerUserProfile' : ActorMethod<[UserProfile], undefined>,
+  'updateCourseContent' : ActorMethod<
+    [bigint, string, string, Array<string>],
+    undefined
+  >,
+  'updateVIPStatus' : ActorMethod<[Principal, boolean], undefined>,
 }
 export declare const idlService: IDL.ServiceClass;
 export declare const idlInitArgs: IDL.Type[];

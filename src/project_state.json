@@ -1,13 +1,14 @@
 {
   "schemaVersion": "1.0.0",
-  "projectStateVersion": 9,
+  "projectStateVersion": 13,
   "summary": "GoCode Zone - A community learning platform for Go programming with courses, quizzes, tests, and Discord integration",
   "architectural_notes": [
     "Multi-page website structure with Home, About, Course, Join Discord, and Privacy Policy as core pages",
     "Discord integration for community access",
     "Course curriculum organized into 4 units with quizzes and tests",
     "Optional VIP/Premium tier for advanced content",
-    "Contact email: gocodezone@googlegroups.com"
+    "Contact email: gocodezone@googlegroups.com",
+    "Admin panel functionality includes: course content editing, announcements, lesson uploads, VIP access management, and optional member viewing"
   ],
   "known_issues": [],
   "isFixRequest": false,
@@ -123,6 +124,62 @@
         "REQ-14"
       ],
       "version": 1
+    },
+    {
+      "id": "feature-add-a-login-button-or-box-in-the-navigation-header-at-xpath-html-1-body-1-div-1-div-1-header-1-div-1-styled-consistently-with-the-existing-navigation-design",
+      "title": "Add a 'Login' button or box in the navigation header at XPath /html[1]/body[1]/div[1]/div[1]/header[1]/div[1], styled consistently with the existing navigation design",
+      "reqIds": [
+        "REQ-16"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-create-an-admin-page-route-admin-accessible-after-login-that-serves-as-the-admin-panel-dashboard",
+      "title": "Create an Admin page route (/admin) accessible after login that serves as the admin panel dashboard",
+      "reqIds": [
+        "REQ-17"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-course-content-editing-functionality-allowing-admins-to-modify-unit-titles-descriptions-and-topics-for-all-4-course-units",
+      "title": "Add course content editing functionality allowing admins to modify unit titles, descriptions, and topics for all 4 course units",
+      "reqIds": [
+        "REQ-18"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-announcement-posting-functionality-allowing-admins-to-create-and-publish-announcements-with-title-content-and-timestamp",
+      "title": "Add announcement posting functionality allowing admins to create and publish announcements with title, content, and timestamp",
+      "reqIds": [
+        "REQ-19"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-lesson-upload-functionality-allowing-admins-to-upload-new-lessons-with-title-content-associated-unit-and-order",
+      "title": "Add lesson upload functionality allowing admins to upload new lessons with title, content, associated unit, and order",
+      "reqIds": [
+        "REQ-20"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-vip-access-management-functionality-allowing-admins-to-grant-or-revoke-vip-status-for-users-by-principal-id",
+      "title": "Add VIP access management functionality allowing admins to grant or revoke VIP status for users by principal ID",
+      "reqIds": [
+        "REQ-21"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-member-viewing-functionality-allowing-admins-to-see-a-list-of-all-registered-users-with-their-principal-ids-and-join-dates",
+      "title": "Add member viewing functionality allowing admins to see a list of all registered users with their principal IDs and join dates",
+      "reqIds": [
+        "REQ-22"
+      ],
+      "version": 1
     }
   ],
   "new_feature_requests": [
@@ -191,6 +248,26 @@
       "summary": "Deploy the current GoCode Zone application to production on the Internet Computer mainnet",
       "reqIds": [
         "REQ-15"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "AR-12",
+      "summary": "Add a 'Login' box/section to the admin login page",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-13",
+      "summary": "Admin panel with ability to edit course content, post announcements, upload new lessons, manage VIP access, and view members",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-20",
+      "summary": "Implement role-based access control to restrict admin panel access to designated admin principals only",
+      "reqIds": [
+        "REQ-23"
       ],
       "status": "pending"
     }

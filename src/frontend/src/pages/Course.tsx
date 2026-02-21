@@ -3,58 +3,11 @@ import { Badge } from '../components/ui/badge';
 import { CheckCircle2, BookOpen } from 'lucide-react';
 import { Link } from '@tanstack/react-router';
 import { Button } from '../components/ui/button';
+import { useGetCourseUnits } from '../hooks/useQueries';
+import { Skeleton } from '../components/ui/skeleton';
 
 export default function Course() {
-  const units = [
-    {
-      number: 1,
-      title: 'Getting Started',
-      description: 'Begin your Go journey with the fundamentals',
-      topics: [
-        'Installing Go and setting up your development environment',
-        'Writing your first Go program',
-        'Understanding Go project structure',
-        'Basic syntax and program flow',
-        'Running and building Go applications',
-      ],
-    },
-    {
-      number: 2,
-      title: 'Variables & Data Types',
-      description: 'Master the building blocks of Go programming',
-      topics: [
-        'Declaring and initializing variables',
-        'Understanding Go\'s type system',
-        'Working with strings, numbers, and booleans',
-        'Constants and their uses',
-        'Type conversion and type inference',
-      ],
-    },
-    {
-      number: 3,
-      title: 'If & Switch',
-      description: 'Learn to control program flow with conditionals',
-      topics: [
-        'If statements and conditional logic',
-        'Else and else-if clauses',
-        'Switch statements for multiple conditions',
-        'Comparison and logical operators',
-        'Best practices for writing clean conditionals',
-      ],
-    },
-    {
-      number: 4,
-      title: 'Loops',
-      description: 'Harness the power of iteration in Go',
-      topics: [
-        'For loops - Go\'s only looping construct',
-        'While-style loops using for',
-        'Infinite loops and break statements',
-        'Continue and loop control',
-        'Iterating over arrays, slices, and maps',
-      ],
-    },
-  ];
+  const { data: units, isLoading } = useGetCourseUnits();
 
   return (
     <div className="flex flex-col">
@@ -85,54 +38,63 @@ export default function Course() {
       <section className="py-16 md:py-24">
         <div className="container">
           <div className="max-w-4xl mx-auto space-y-8">
-            {units.map((unit) => (
-              <Card key={unit.number} className="border-2 hover:border-go-blue/50 transition-colors">
-                <CardHeader>
-                  <div className="flex items-start justify-between">
-                    <div className="space-y-2">
-                      <div className="flex items-center gap-3">
-                        <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-go-blue text-white font-bold text-xl">
-                          {unit.number}
-                        </div>
-                        <div>
-                          <CardTitle className="text-2xl">Unit {unit.number} – {unit.title}</CardTitle>
-                          <p className="text-muted-foreground mt-1">{unit.description}</p>
+            {isLoading ? (
+              <>
+                <Skeleton className="h-64 w-full" />
+                <Skeleton className="h-64 w-full" />
+                <Skeleton className="h-64 w-full" />
+                <Skeleton className="h-64 w-full" />
+              </>
+            ) : (
+              units?.map((unit, index) => (
+                <Card key={index} className="border-2 hover:border-go-blue/50 transition-colors">
+                  <CardHeader>
+                    <div className="flex items-start justify-between">
+                      <div className="space-y-2">
+                        <div className="flex items-center gap-3">
+                          <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-go-blue text-white font-bold text-xl">
+                            {index + 1}
+                          </div>
+                          <div>
+                            <CardTitle className="text-2xl">Unit {index + 1} – {unit.title}</CardTitle>
+                            <p className="text-muted-foreground mt-1">{unit.description}</p>
+                          </div>
                         </div>
                       </div>
                     </div>
-                  </div>
-                </CardHeader>
-                <CardContent>
-                  <div className="space-y-4">
-                    <div>
-                      <h4 className="font-semibold mb-3 flex items-center gap-2">
-                        <BookOpen className="h-5 w-5 text-go-blue" />
-                        What You'll Learn:
-                      </h4>
-                      <ul className="space-y-2">
-                        {unit.topics.map((topic, index) => (
-                          <li key={index} className="flex items-start gap-2">
-                            <CheckCircle2 className="h-5 w-5 text-go-blue mt-0.5 flex-shrink-0" />
-                            <span className="text-muted-foreground">{topic}</span>
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
+                  </CardHeader>
+                  <CardContent>
+                    <div className="space-y-4">
+                      <div>
+                        <h4 className="font-semibold mb-3 flex items-center gap-2">
+                          <BookOpen className="h-5 w-5 text-go-blue" />
+                          What You'll Learn:
+                        </h4>
+                        <ul className="space-y-2">
+                          {unit.topics.map((topic, topicIndex) => (
+                            <li key={topicIndex} className="flex items-start gap-2">
+                              <CheckCircle2 className="h-5 w-5 text-go-blue mt-0.5 flex-shrink-0" />
+                              <span className="text-muted-foreground">{topic}</span>
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
 
-                    <div className="pt-4 border-t border-border">
-                      <div className="flex flex-wrap gap-2">
-                        <Badge variant="outline" className="text-sm">
-                          ✓ Quiz Included
-                        </Badge>
-                        <Badge variant="outline" className="text-sm">
-                          ✓ Big Test Included
-                        </Badge>
+                      <div className="pt-4 border-t border-border">
+                        <div className="flex flex-wrap gap-2">
+                          <Badge variant="outline" className="text-sm">
+                            ✓ Quiz Included
+                          </Badge>
+                          <Badge variant="outline" className="text-sm">
+                            ✓ Big Test Included
+                          </Badge>
+                        </div>
                       </div>
                     </div>
-                  </div>
-                </CardContent>
-              </Card>
-            ))}
+                  </CardContent>
+                </Card>
+              ))
+            )}
           </div>
         </div>
       </section>

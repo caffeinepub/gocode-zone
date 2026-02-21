@@ -1,63 +1,146 @@
 {
   "kind": "implementation_plan",
   "version": "1.0",
-  "title": "Deploy GoCode Zone to Production",
+  "title": "Add Admin panel with course management, announcements, lessons, VIP access, and member viewing",
   "requirements": [
     {
-      "id": "REQ-15",
-      "summary": "Deploy the GoCode Zone application to production on the Internet Computer mainnet",
+      "id": "REQ-17",
+      "summary": "Create an Admin page route (/admin) accessible after login that serves as the admin panel dashboard",
       "acceptanceCriteria": [
-        "Application is deployed and accessible via a production URL on the Internet Computer",
-        "All existing features (Home, About, Course, Join Discord, VIP, Privacy Policy, Contact pages) are functional in production",
-        "Contact form submissions persist to the backend canister",
-        "Discord invite links work correctly in production",
-        "Navigation and routing function properly across all pages"
+        "A new /admin route is registered in App.tsx router configuration",
+        "The Admin page is only accessible when a user is authenticated via Internet Identity",
+        "The page displays a dashboard layout with navigation to admin features"
       ],
       "file_operations": [
         {
-          "path": "frontend/src/hooks/useActor.ts",
-          "operation": "modify",
-          "description": "Verify the backend canister connection configuration uses production canister IDs and mainnet host URLs. Ensure the actor initialization properly connects to the deployed mainnet backend canister."
-        },
-        {
-          "path": "frontend/src/main.tsx",
-          "operation": "modify",
-          "description": "Verify React Query and Internet Identity provider configurations are suitable for production deployment. Ensure no development-only configurations remain."
-        },
-        {
-          "path": "frontend/index.html",
-          "operation": "modify",
-          "description": "Verify the HTML entry point contains appropriate meta tags and configuration for production deployment on the Internet Computer."
+          "path": "frontend/src/pages/Admin.tsx",
+          "operation": "create",
+          "description": "Create Admin dashboard page component that checks authentication using useInternetIdentity hook, displays admin navigation tabs for course editing, announcements, lessons, VIP management, and member viewing. Use the authorization component's access control to verify admin role via isCallerAdmin backend method before rendering dashboard. Show AccessDeniedScreen for non-admin users."
         },
         {
           "path": "frontend/src/App.tsx",
           "operation": "modify",
-          "description": "Verify all seven routes (Home, About, Course, Join, VIP, Privacy, Contact) are properly configured and will function correctly in the production environment with proper navigation and routing."
+          "description": "Register the new /admin route in the TanStack Router configuration alongside existing routes (Home, About, Course, Join, VIP, Privacy, Contact). Import and configure the Admin page component with the shared Layout wrapper."
         },
         {
-          "path": "frontend/src/components/ContactForm.tsx",
+          "path": "frontend/src/components/Navigation.tsx",
           "operation": "modify",
-          "description": "Verify the contact form submission through useSubmitContact hook will correctly persist data to the production backend canister. Ensure error handling and success notifications work in production."
-        },
+          "description": "Add conditional Admin navigation link in the desktop menu and mobile Sheet drawer that appears only when the user is authenticated and has admin role. Use isCallerAdmin query to determine visibility."
+        }
+      ]
+    },
+    {
+      "id": "REQ-18",
+      "summary": "Add course content editing functionality allowing admins to modify unit titles, descriptions, and topics for all 4 course units",
+      "acceptanceCriteria": [
+        "Admin panel displays an editable interface for all 4 units with form inputs",
+        "Changes are saved to the backend and reflected on the Course page immediately"
+      ],
+      "file_operations": [
         {
-          "path": "frontend/src/components/Footer.tsx",
-          "operation": "modify",
-          "description": "Verify the Discord invite link (https://discord.gg/y5EBSaf8r2) is correctly maintained and will work in production."
-        },
-        {
-          "path": "frontend/src/pages/Join.tsx",
-          "operation": "modify",
-          "description": "Verify the Discord invite button and community joining instructions reference the correct Discord server link and will function properly in production."
-        },
-        {
-          "path": "frontend/src/pages/Contact.tsx",
-          "operation": "modify",
-          "description": "Verify the contact email address (gocodezone@googlegroups.com) is correctly maintained and alternative communication methods are accessible in production."
+          "path": "frontend/src/components/admin/CourseEditor.tsx",
+          "operation": "create",
+          "description": "Create CourseEditor component that fetches current course units via getCourseUnits, displays editable forms for each of the 4 units (title, description, topics array), and submits updates via updateCourseContent mutation. Include form validation, loading states, and success/error toast notifications. Verify the authorization component's usage instructions before implementing admin-only access."
         },
         {
           "path": "frontend/src/hooks/useQueries.ts",
           "operation": "modify",
-          "description": "Verify React Query hooks for contact submission and fetching contacts work correctly with the production backend actor and handle production network conditions appropriately."
+          "description": "Add React Query hooks: useGetCourseUnits for fetching course units data, and useUpdateCourseContent mutation for saving course content changes. Both hooks use the actor from useActor hook and handle proper query invalidation on success."
+        },
+        {
+          "path": "frontend/src/pages/Course.tsx",
+          "operation": "modify",
+          "description": "Refactor to use the new useGetCourseUnits hook instead of hardcoded unit data, ensuring live data from backend is displayed and updates from admin panel are reflected immediately via React Query cache invalidation."
+        }
+      ]
+    },
+    {
+      "id": "REQ-19",
+      "summary": "Add announcement posting functionality allowing admins to create and publish announcements with title, content, and timestamp",
+      "acceptanceCriteria": [
+        "Admin panel includes a form to compose and publish new announcements",
+        "Announcements are displayed on the Home page in a dedicated section"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/components/admin/AnnouncementManager.tsx",
+          "operation": "create",
+          "description": "Create AnnouncementManager component for admin panel that displays existing announcements from getAllAnnouncements and provides a form to create new announcements via publishAnnouncement mutation. Include title and content inputs, submission handling with loading states, and success/error feedback. Verify the authorization component's usage instructions before implementing admin-only access."
+        },
+        {
+          "path": "frontend/src/components/AnnouncementsList.tsx",
+          "operation": "create",
+          "description": "Create AnnouncementsList component that fetches and displays announcements from getAllAnnouncements in a card-based layout showing title, content, and formatted timestamp. Handle empty state when no announcements exist."
+        },
+        {
+          "path": "frontend/src/hooks/useQueries.ts",
+          "operation": "modify",
+          "description": "Add React Query hooks: useGetAllAnnouncements for fetching announcements list, and usePublishAnnouncement mutation for creating new announcements. Include proper query invalidation on successful announcement creation."
+        },
+        {
+          "path": "frontend/src/pages/Home.tsx",
+          "operation": "modify",
+          "description": "Add AnnouncementsList component to the Home page below the hero section and above the benefits grid. Display announcements in a dedicated section with appropriate heading and styling that matches the existing page design."
+        }
+      ]
+    },
+    {
+      "id": "REQ-20",
+      "summary": "Add lesson upload functionality allowing admins to upload new lessons with title, content, associated unit, and order",
+      "acceptanceCriteria": [
+        "Admin panel provides a form to create new lessons and associate them with units",
+        "Lessons can be ordered/sequenced within their respective units"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/components/admin/LessonManager.tsx",
+          "operation": "create",
+          "description": "Create LessonManager component that fetches all lessons via getAllLessons, displays them grouped by unit with order numbers, and provides a form to add new lessons using addLesson mutation. Form includes inputs for title, content, unit selection (1-4), and order number. Include validation, loading states, and toast notifications. Verify the authorization component's usage instructions before implementing admin-only access."
+        },
+        {
+          "path": "frontend/src/hooks/useQueries.ts",
+          "operation": "modify",
+          "description": "Add React Query hooks: useGetAllLessons for fetching lessons data, and useAddLesson mutation for creating new lessons. Handle query invalidation on successful lesson creation to refresh the lessons list."
+        }
+      ]
+    },
+    {
+      "id": "REQ-21",
+      "summary": "Add VIP access management functionality allowing admins to grant or revoke VIP status for users by principal ID",
+      "acceptanceCriteria": [
+        "Admin panel displays a VIP management interface with user search by principal",
+        "Admins can grant or revoke VIP access with confirmation"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/components/admin/VIPManager.tsx",
+          "operation": "create",
+          "description": "Create VIPManager component that displays current VIP members from getVIPMembers, provides input for principal ID lookup, and toggle controls to grant/revoke VIP status via updateVIPStatus mutation. Include confirmation dialogs for status changes, proper principal ID validation, loading states, and success/error feedback. Verify the authorization component's usage instructions before implementing admin-only access."
+        },
+        {
+          "path": "frontend/src/hooks/useQueries.ts",
+          "operation": "modify",
+          "description": "Add React Query hooks: useGetVIPMembers for fetching VIP members list, and useUpdateVIPStatus mutation for changing VIP status. Include query invalidation on successful status updates."
+        }
+      ]
+    },
+    {
+      "id": "REQ-22",
+      "summary": "Add member viewing functionality allowing admins to see a list of all registered users with their principal IDs and join dates",
+      "acceptanceCriteria": [
+        "Admin panel displays a members list table with principal ID, join date, and VIP status",
+        "The list supports pagination or scrolling for large member counts"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/components/admin/MembersList.tsx",
+          "operation": "create",
+          "description": "Create MembersList component that fetches all members via getVIPMembers (which returns all members with VIP status flags), displays them in a table with columns for principal ID, join date (formatted), and VIP status badge. Include search/filter functionality and handle large lists with scrollable container or pagination. Verify the authorization component's usage instructions before implementing admin-only access."
+        },
+        {
+          "path": "frontend/src/pages/Admin.tsx",
+          "operation": "modify",
+          "description": "Wire in all admin feature components (CourseEditor, AnnouncementManager, LessonManager, VIPManager, MembersList) using a tabbed interface or navigation system. Each tab displays the respective management component. Ensure proper layout and navigation between admin features."
         }
       ]
     }

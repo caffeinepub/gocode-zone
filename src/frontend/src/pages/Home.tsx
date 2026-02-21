@@ -4,6 +4,7 @@ import { Card, CardContent } from '../components/ui/card';
 import { BookOpen, Trophy, Code2, Users } from 'lucide-react';
 import Testimonials from '../components/Testimonials';
 import FAQ from '../components/FAQ';
+import AnnouncementsList from '../components/AnnouncementsList';
 
 export default function Home() {
   const benefits = [
@@ -67,6 +68,21 @@ export default function Home() {
                 className="w-full h-auto rounded-2xl shadow-2xl"
               />
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Announcements Section */}
+      <section className="py-16 md:py-24">
+        <div className="container">
+          <div className="max-w-4xl mx-auto">
+            <div className="text-center mb-8">
+              <h2 className="text-3xl md:text-4xl font-bold mb-4">Latest Announcements</h2>
+              <p className="text-lg text-muted-foreground">
+                Stay updated with the latest news and updates
+              </p>
+            </div>
+            <AnnouncementsList />
           </div>
         </div>
       </section>

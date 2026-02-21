@@ -7,6 +7,7 @@ import Join from './pages/Join';
 import VIP from './pages/VIP';
 import Privacy from './pages/Privacy';
 import Contact from './pages/Contact';
+import Admin from './pages/Admin';
 import Navigation from './components/Navigation';
 import Footer from './components/Footer';
 import { Toaster } from './components/ui/sonner';
@@ -70,6 +71,12 @@ const contactRoute = createRoute({
   component: Contact,
 });
 
+const adminRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: '/admin',
+  component: Admin,
+});
+
 const routeTree = rootRoute.addChildren([
   indexRoute,
   aboutRoute,
@@ -78,6 +85,7 @@ const routeTree = rootRoute.addChildren([
   vipRoute,
   privacyRoute,
   contactRoute,
+  adminRoute,
 ]);
 
 const router = createRouter({ routeTree });

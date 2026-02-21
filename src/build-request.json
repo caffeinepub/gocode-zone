@@ -1,40 +1,151 @@
 {
   "kind": "build_request",
-  "title": "Deploy GoCode Zone to production",
+  "title": "Add Admin panel with course management, announcements, lessons, VIP access, and member viewing",
   "projectName": "GoCode Zone",
   "priority": "normal",
   "requirements": [
     {
-      "id": "REQ-15",
-      "text": "Deploy the current GoCode Zone application to production on the Internet Computer mainnet",
-      "target": "both",
+      "id": "REQ-17",
+      "text": "Create an Admin page route (/admin) accessible after login that serves as the admin panel dashboard",
+      "target": "frontend",
       "source": {
         "messageIds": [
-          "msg-user-make-it-live"
+          "msg-last"
         ],
         "quotes": [
-          "make it live"
+          "Your Admin panel can allow you to"
         ]
       },
       "acceptanceCriteria": [
-        "Application is deployed and accessible via a production URL on the Internet Computer",
-        "All existing features (Home, About, Course, Join Discord, VIP, Privacy Policy, Contact pages) are functional in production",
-        "Contact form submissions persist to the backend canister",
-        "Discord invite links work correctly in production",
-        "Navigation and routing function properly across all pages"
+        "A new /admin route is registered in App.tsx router configuration",
+        "The Admin page is only accessible when a user is authenticated via Internet Identity",
+        "The page displays a dashboard layout with navigation to admin features"
+      ]
+    },
+    {
+      "id": "REQ-18",
+      "text": "Add course content editing functionality allowing admins to modify unit titles, descriptions, and topics for all 4 course units",
+      "target": "both",
+      "source": {
+        "messageIds": [
+          "msg-last"
+        ],
+        "quotes": [
+          "Edit course content"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Backend stores course unit data (title, description, topics) persistently",
+        "Backend exposes methods to retrieve and update course unit information",
+        "Admin panel displays an editable interface for all 4 units with form inputs",
+        "Changes are saved to the backend and reflected on the Course page immediately"
+      ]
+    },
+    {
+      "id": "REQ-19",
+      "text": "Add announcement posting functionality allowing admins to create and publish announcements with title, content, and timestamp",
+      "target": "both",
+      "source": {
+        "messageIds": [
+          "msg-last"
+        ],
+        "quotes": [
+          "Post announcements"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Backend stores announcements with title, content, author, and timestamp",
+        "Backend exposes methods to create, retrieve, and delete announcements",
+        "Admin panel includes a form to compose and publish new announcements",
+        "Announcements are displayed on the Home page in a dedicated section"
+      ]
+    },
+    {
+      "id": "REQ-20",
+      "text": "Add lesson upload functionality allowing admins to upload new lessons with title, content, associated unit, and order",
+      "target": "both",
+      "source": {
+        "messageIds": [
+          "msg-last"
+        ],
+        "quotes": [
+          "Upload new lessons"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Backend stores lessons with title, content, unit ID, order/sequence number, and creation timestamp",
+        "Backend exposes methods to create, retrieve, update, and delete lessons",
+        "Admin panel provides a form to create new lessons and associate them with units",
+        "Lessons can be ordered/sequenced within their respective units"
+      ]
+    },
+    {
+      "id": "REQ-21",
+      "text": "Add VIP access management functionality allowing admins to grant or revoke VIP status for users by principal ID",
+      "target": "both",
+      "source": {
+        "messageIds": [
+          "msg-last"
+        ],
+        "quotes": [
+          "Manage VIP access"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Backend stores VIP membership status per principal ID with grant/expiry dates",
+        "Backend exposes methods to grant VIP access, revoke access, and check VIP status",
+        "Admin panel displays a VIP management interface with user search by principal",
+        "Admins can grant or revoke VIP access with confirmation"
+      ]
+    },
+    {
+      "id": "REQ-22",
+      "text": "Add member viewing functionality allowing admins to see a list of all registered users with their principal IDs and join dates",
+      "target": "both",
+      "source": {
+        "messageIds": [
+          "msg-last"
+        ],
+        "quotes": [
+          "View members (optional)"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Backend tracks user registrations with principal ID and join timestamp",
+        "Backend exposes a method to retrieve all registered members (admin-only)",
+        "Admin panel displays a members list table with principal ID, join date, and VIP status",
+        "The list supports pagination or scrolling for large member counts"
+      ]
+    },
+    {
+      "id": "REQ-23",
+      "text": "Implement role-based access control to restrict admin panel access to designated admin principals only",
+      "target": "backend",
+      "source": {
+        "messageIds": [
+          "msg-last"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Backend maintains a list of admin principal IDs",
+        "All admin-only methods verify the caller is in the admin list before executing",
+        "Non-admin users receive an authorization error when attempting admin operations",
+        "The admin list can be initialized with at least one admin principal"
       ]
     }
   ],
   "constraints": [
-    "Do not modify any existing functionality during deployment",
-    "Preserve all current Discord invite links (https://discord.gg/y5EBSaf8r2)",
-    "Maintain the contact email address (gocodezone@googlegroups.com)"
+    "Use the existing Internet Identity authentication system for admin login verification",
+    "Maintain single-actor architecture with all Motoko logic in backend/main.mo",
+    "Do not modify immutable frontend paths: useInternetIdentity.ts, useInternetIdentity.tsx, useActor.ts, main.tsx, components/ui",
+    "Use React Query for all data fetching and mutations in admin features"
   ],
   "nonGoals": [
-    "Adding new features or pages",
-    "Modifying the visual design or styling",
-    "Changing the course curriculum content",
-    "Updating any configuration or settings beyond what's needed for deployment"
+    "User self-registration or profile management",
+    "Advanced lesson content editors (rich text, code highlighting)",
+    "Email or push notification system for announcements",
+    "Analytics or reporting dashboards",
+    "Multi-admin role hierarchies (owner, editor, viewer)"
   ],
   "imageRequirements": {
     "required": [],
