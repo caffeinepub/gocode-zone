@@ -1,6 +1,6 @@
 {
   "schemaVersion": "1.0.0",
-  "projectStateVersion": 7,
+  "projectStateVersion": 9,
   "summary": "GoCode Zone - A community learning platform for Go programming with courses, quizzes, tests, and Discord integration",
   "architectural_notes": [
     "Multi-page website structure with Home, About, Course, Join Discord, and Privacy Policy as core pages",
@@ -184,6 +184,14 @@
       "id": "AR-10",
       "summary": "Footer with Discord link, website name, year, and Privacy Policy link",
       "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-11",
+      "summary": "Deploy the current GoCode Zone application to production on the Internet Computer mainnet",
+      "reqIds": [
+        "REQ-15"
+      ],
       "status": "pending"
     }
   ],

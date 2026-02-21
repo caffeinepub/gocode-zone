@@ -1,21 +1,63 @@
 {
   "kind": "implementation_plan",
   "version": "1.0",
-  "title": "Update contact email to gocodezone@googlegroups.com",
+  "title": "Deploy GoCode Zone to Production",
   "requirements": [
     {
-      "id": "REQ-14",
-      "summary": "Update the contact email address displayed on the Contact page to gocodezone@googlegroups.com",
+      "id": "REQ-15",
+      "summary": "Deploy the GoCode Zone application to production on the Internet Computer mainnet",
       "acceptanceCriteria": [
-        "The Contact page displays gocodezone@googlegroups.com as the contact email",
-        "The email is displayed in the alternative contact methods section",
-        "The email address is clickable as a mailto link"
+        "Application is deployed and accessible via a production URL on the Internet Computer",
+        "All existing features (Home, About, Course, Join Discord, VIP, Privacy Policy, Contact pages) are functional in production",
+        "Contact form submissions persist to the backend canister",
+        "Discord invite links work correctly in production",
+        "Navigation and routing function properly across all pages"
       ],
       "file_operations": [
         {
+          "path": "frontend/src/hooks/useActor.ts",
+          "operation": "modify",
+          "description": "Verify the backend canister connection configuration uses production canister IDs and mainnet host URLs. Ensure the actor initialization properly connects to the deployed mainnet backend canister."
+        },
+        {
+          "path": "frontend/src/main.tsx",
+          "operation": "modify",
+          "description": "Verify React Query and Internet Identity provider configurations are suitable for production deployment. Ensure no development-only configurations remain."
+        },
+        {
+          "path": "frontend/index.html",
+          "operation": "modify",
+          "description": "Verify the HTML entry point contains appropriate meta tags and configuration for production deployment on the Internet Computer."
+        },
+        {
+          "path": "frontend/src/App.tsx",
+          "operation": "modify",
+          "description": "Verify all seven routes (Home, About, Course, Join, VIP, Privacy, Contact) are properly configured and will function correctly in the production environment with proper navigation and routing."
+        },
+        {
+          "path": "frontend/src/components/ContactForm.tsx",
+          "operation": "modify",
+          "description": "Verify the contact form submission through useSubmitContact hook will correctly persist data to the production backend canister. Ensure error handling and success notifications work in production."
+        },
+        {
+          "path": "frontend/src/components/Footer.tsx",
+          "operation": "modify",
+          "description": "Verify the Discord invite link (https://discord.gg/y5EBSaf8r2) is correctly maintained and will work in production."
+        },
+        {
+          "path": "frontend/src/pages/Join.tsx",
+          "operation": "modify",
+          "description": "Verify the Discord invite button and community joining instructions reference the correct Discord server link and will function properly in production."
+        },
+        {
           "path": "frontend/src/pages/Contact.tsx",
           "operation": "modify",
-          "description": "Update the email address in the alternative contact methods section to gocodezone@googlegroups.com and ensure it is displayed as a clickable mailto link"
+          "description": "Verify the contact email address (gocodezone@googlegroups.com) is correctly maintained and alternative communication methods are accessible in production."
+        },
+        {
+          "path": "frontend/src/hooks/useQueries.ts",
+          "operation": "modify",
+          "description": "Verify React Query hooks for contact submission and fetching contacts work correctly with the production backend actor and handle production network conditions appropriately."
         }
       ]
     }

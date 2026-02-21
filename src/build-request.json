@@ -1,36 +1,40 @@
 {
   "kind": "build_request",
-  "title": "Update contact email to gocodezone@googlegroups.com",
+  "title": "Deploy GoCode Zone to production",
   "projectName": "GoCode Zone",
   "priority": "normal",
   "requirements": [
     {
-      "id": "REQ-14",
-      "text": "Update the contact email address displayed on the Contact page to gocodezone@googlegroups.com",
-      "target": "frontend",
+      "id": "REQ-15",
+      "text": "Deploy the current GoCode Zone application to production on the Internet Computer mainnet",
+      "target": "both",
       "source": {
         "messageIds": [
-          "msg-user-latest"
+          "msg-user-make-it-live"
         ],
         "quotes": [
-          "here is the contact  email (gocodezone@googlegroups.com)"
+          "make it live"
         ]
       },
       "acceptanceCriteria": [
-        "The Contact page displays gocodezone@googlegroups.com as the contact email",
-        "The email is displayed in the alternative contact methods section",
-        "The email address is clickable as a mailto link"
+        "Application is deployed and accessible via a production URL on the Internet Computer",
+        "All existing features (Home, About, Course, Join Discord, VIP, Privacy Policy, Contact pages) are functional in production",
+        "Contact form submissions persist to the backend canister",
+        "Discord invite links work correctly in production",
+        "Navigation and routing function properly across all pages"
       ]
     }
   ],
   "constraints": [
-    "Do not modify the backend Contact type or submission logic",
-    "Maintain the existing Contact page layout and design"
+    "Do not modify any existing functionality during deployment",
+    "Preserve all current Discord invite links (https://discord.gg/y5EBSaf8r2)",
+    "Maintain the contact email address (gocodezone@googlegroups.com)"
   ],
   "nonGoals": [
-    "Changing the Discord invite link",
-    "Modifying the contact form submission functionality",
-    "Adding new contact methods"
+    "Adding new features or pages",
+    "Modifying the visual design or styling",
+    "Changing the course curriculum content",
+    "Updating any configuration or settings beyond what's needed for deployment"
   ],
   "imageRequirements": {
     "required": [],

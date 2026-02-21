@@ -1,10 +1,12 @@
 # Specification
 
 ## Summary
-**Goal:** Update the contact email address displayed on the Contact page to gocodezone@googlegroups.com.
+**Goal:** Deploy GoCode Zone to production on the Internet Computer mainnet.
 
 **Planned changes:**
-- Replace the existing contact email with gocodezone@googlegroups.com in the alternative contact methods section
-- Ensure the email is clickable as a mailto link
+- Deploy the application to the Internet Computer mainnet with a production URL
+- Ensure all existing pages (Home, About, Course, Join Discord, VIP, Privacy Policy, Contact) are accessible and functional
+- Verify contact form backend persistence works in production
+- Test Discord invite links and navigation in the live environment
 
-**User-visible outcome:** Users visiting the Contact page will see gocodezone@googlegroups.com as the contact email address and can click it to send an email.
+**User-visible outcome:** Users can access GoCode Zone via a public production URL on the Internet Computer, browse all pages, submit contact forms, and join the Discord community.
